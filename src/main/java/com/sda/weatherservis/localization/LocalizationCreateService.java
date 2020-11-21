@@ -20,9 +20,9 @@ public class LocalizationCreateService {
             throw new BadRequestException(" Nazwa kraju nie może być pusta");
         }
         Localization localization = new Localization();
-        //TODO LocalizationDevelop
         localization.setCityName(cityName);
         localization.setCountryName(coutryName);
+//        ToDo: LocalizationDefiniton
 //        localization.setLatitude();
 //        localization.setLongitude();
 //        localization.setRegionName();

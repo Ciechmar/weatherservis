@@ -29,7 +29,6 @@ public class LocalizationCreateTest {
     ObjectMapper objectMapper = new ObjectMapper(); //ToDo:Doczytać
 
 
-
     @Test
     void createLocazliation_createNewLocalizationAndReturn2xxStatusCode() throws Exception {
         //given
@@ -40,9 +39,9 @@ public class LocalizationCreateTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
         //when
-        MvcResult result= mockMvc.perform(post).andReturn();
+        MvcResult result = mockMvc.perform(post).andReturn();
         //then
-        MockHttpServletResponse response=result.getResponse();
+        MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
 
 
