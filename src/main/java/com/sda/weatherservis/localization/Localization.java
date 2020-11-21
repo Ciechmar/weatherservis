@@ -1,6 +1,8 @@
 package com.sda.weatherservis.localization;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,8 @@ import java.time.Instant;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
 public class Localization {
 
     @Id

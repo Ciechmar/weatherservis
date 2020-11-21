@@ -1,18 +1,20 @@
 package com.sda.weatherservis.localization;
 
+import com.sun.istack.NotNull;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LocalizationMapper {
 
-    LocalizationDto mapToLocalizationDto (Localization newLocalization){
+    LocalizationDto mapToLocalizationDto(Localization newLocalization) {
         LocalizationDto localizationDto = new LocalizationDto();
-        localizationDto.setId(newLocalization.getId());
-        localizationDto.setCityName(newLocalization.getCityName());
-        localizationDto.setCountryName(newLocalization.getCountryName());
-        localizationDto.setRegionName(newLocalization.getRegionName());
-        localizationDto.setLatitude(newLocalization.getLatitude());
-        localizationDto.setLongitude(newLocalization.getLongitude());
+        newLocalization.builder()
+                .cityName(newLocalization.getCityName())
+                .countryName(newLocalization.getCountryName())
+                .latitude(newLocalization.getLatitude())
+                .regionName(newLocalization.getRegionName())
+                .longitude(newLocalization.getLongitude())
+                .build();
         return localizationDto;
     }
 

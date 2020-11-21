@@ -1,13 +1,15 @@
 package com.sda.weatherservis.localization;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-// todo user @Builder
+@Builder
+
 public class LocalizationDto {
     Long id;
     String cityName; //NotNull

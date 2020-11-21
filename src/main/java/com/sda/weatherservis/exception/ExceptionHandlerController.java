@@ -16,6 +16,12 @@ public class ExceptionHandlerController {
         log.error(exception.getMessage());
     }
 
+    @ExceptionHandler(NotCorrectBoundryException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    void notCorrectBoudryHandler(NotCorrectBoundryException exception){
+        log.error(exception.getMessage());
+    }
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     void runtimeExceptionHandler(RuntimeException exception){
