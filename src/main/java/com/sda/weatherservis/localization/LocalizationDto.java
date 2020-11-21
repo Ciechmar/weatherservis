@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+// todo user @Builder
 public class LocalizationDto {
-
     Long id;
     String cityName; //NotNull
     String countryName;//NotNull

@@ -12,22 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @RequiredArgsConstructor
 public class LocalizationController {
+
     final LocalizationCreateService localizationCreateService;
     final LocalizationMapper localizationMapper;
 
     @PostMapping("/localization")
     ResponseEntity<LocalizationDto> createEntry (@RequestBody LocalizationDto localizationDto){
-
         String cityName = localizationDto.getCityName();
         String countryName = localizationDto.getCountryName();
-
+        // todo wrap a data to eg. LocalizationDefinition and pass to the localizationCreateService
         Localization newLocalization = localizationCreateService.createLocalization(cityName, countryName);
         log.info(newLocalization);
-        return ResponseEntity.status(HttpStatus.CREATED).body(localizationMapper.mapToLocalizationDto(newLocalization));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(localizationMapper.mapToLocalizationDto(newLocalization));
     }
-
-
-
-
-
 }

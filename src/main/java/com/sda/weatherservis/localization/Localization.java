@@ -20,5 +20,5 @@ public class Localization {
     String countryName; //NotNull
     String longitude; //długość geograficzna zgodnie z wartościami geograficznymi -180->W, 180->E
     String latitude; //szerokośc geograficzna zgodna z wartościami geograficznymi -90->S, 90->N
-    Instant createDate;
+    Instant createDate; // todo unnecessary
 }
