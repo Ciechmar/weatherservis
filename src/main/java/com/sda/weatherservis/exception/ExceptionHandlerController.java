@@ -22,6 +22,12 @@ public class ExceptionHandlerController {
         log.error(exception.getMessage());
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    void notFoundExceptionHandler(NotFoundException exception){
+        log.error(exception.getMessage());
+    }
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     void runtimeExceptionHandler(RuntimeException exception){
