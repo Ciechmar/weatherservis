@@ -24,57 +24,25 @@ public class LocalizationController {
 
     @PostMapping("/localization")
     ResponseEntity<LocalizationDto> createLocalization(@RequestBody LocalizationDto localizationDto) {
-        LocalizationDefinition localizationDefinition = mapToLocalizationDefinition(localizationDto);
+        LocalizationDefinition localizationDefinition = localizationMapper.mapToLocalizationDefinition(localizationDto);
         Localization newLocalization = localizationCreateService.createLocalization(localizationDefinition);
         log.info(newLocalization);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(mapToLocalizationDto(newLocalization));
+                .body(localizationMapper.mapToLocalizationDto(newLocalization));
     }
 
     @GetMapping("/localization")
     List<LocalizationDto> getAllLocalization() {
-        return localizationGetService
-                .getAllLocalizationList()
-                .stream()
-                .map(localization -> mapToLocalizationDto(localization))
+        return localizationGetService.getAllLocalizationList().stream()
+                .map(localizationMapper::mapToLocalizationDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/localization/{id}")
     LocalizationDto getLocalization(@PathVariable String id) {
         //ToDo:Zabezpieczenie gdy id nie jest cyfrą-> wyjątek
-
         Localization localization = localizationGetService.getLocalizationById(Long.valueOf(id));
         return localizationMapper.mapToLocalizationDto(localization);
-    }
-
-
-    private LocalizationDto mapToLocalizationDto(Localization newLocalization) {
-        LocalizationDto localizationDto = new LocalizationDto();
-        localizationDto.builder()
-                .cityName(newLocalization.getCityName())
-                .countryName(newLocalization.getCountryName())
-                .latitude(newLocalization.getLatitude())
-                .regionName(newLocalization.getRegionName())
-                .longitude(newLocalization.getLongitude())
-                .build();
-        return localizationDto;
-
-    }
-
-    private LocalizationDefinition mapToLocalizationDefinition(LocalizationDto localizationDto) {
-        LocalizationDefinition localizationDefinition = new LocalizationDefinition();
-
-        localizationDefinition.builder()
-                .cityName(localizationDto.getCityName())
-                .countryName(localizationDto.getCountryName())
-                .latitude(localizationDto.getLatitude())
-                .longitude(localizationDto.getLongitude())
-                .regionName(localizationDto.getRegionName())
-                .build();
-
-        return localizationDefinition;
-
     }
 }

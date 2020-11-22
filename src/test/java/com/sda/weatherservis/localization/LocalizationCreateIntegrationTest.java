@@ -32,12 +32,12 @@ public class LocalizationCreateIntegrationTest {
         localizationRepository.deleteAll();
         LocalizationDto localizationDto = new LocalizationDto(null, "miasto", "panstwo", "region", "0", "0");
         String requestBody = objectMapper.writeValueAsString(localizationDto);
-        MockHttpServletRequestBuilder post = post("/localization")
+        MockHttpServletRequestBuilder request = post("/localization")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
 
         //when
-        MvcResult result = mockMvc.perform(post).andReturn();
+        MvcResult result = mockMvc.perform(request).andReturn();
 
         //then
         MockHttpServletResponse response = result.getResponse();

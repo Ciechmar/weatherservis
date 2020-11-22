@@ -11,15 +11,13 @@ import java.util.List;
 public class LocalizationGetService {
 
     private final LocalizationRepository localizationRepository;
-    private final LocalizationMapper localizationMapper;
 
-    Localization getLocalizationById(Long id){
-        return localizationRepository
-                .findById(id).orElseThrow(()->new NotFoundException("Nie znaleziono lokalizacji o id " +id));
+    Localization getLocalizationById(Long id) {
+        return localizationRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Nie znaleziono lokalizacji o id " + id));
     }
 
-    List<Localization> getAllLocalizationList(){
+    List<Localization> getAllLocalizationList() {
         return localizationRepository.findAll();
     }
-
 }

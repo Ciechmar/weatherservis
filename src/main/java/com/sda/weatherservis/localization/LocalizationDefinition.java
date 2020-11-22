@@ -4,6 +4,7 @@ import lombok.*;
 
 @Builder
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 public class LocalizationDefinition {
 
