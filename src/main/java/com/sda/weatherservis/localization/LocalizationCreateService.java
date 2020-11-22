@@ -10,46 +10,27 @@ import org.springframework.stereotype.Component;
 public class LocalizationCreateService {
 
     final LocalizationRepository localizationRepository;
+    final LocalizationMapper localizationMapper;
 
     Localization createLocalization(LocalizationDefinition localizationDefinition) {
         String cityName = localizationDefinition.getCityName();
-        String coutryName = localizationDefinition.getCountryName();
-        double latitude = Integer.valueOf(localizationDefinition.latitude);
-        double longitude = Integer.valueOf(localizationDefinition.longitude);
-        if (cityName.isEmpty() && cityName.trim().length() < 2) {
+        String countryName = localizationDefinition.getCountryName();
+        Double latitudeNumber = localizationDefinition.getLatitude();
+        Double longitudeNumber = localizationDefinition.getLongitude();
+
+        if (cityName.trim().isEmpty()) {
             throw new BadRequestException(" Nazwa miasta nie może być pusta");
         }
-        if (coutryName.isEmpty() && coutryName.trim().length() < 2) {
+        if (countryName.trim().isEmpty()) {
             throw new BadRequestException(" Nazwa kraju nie może być pusta");
         }
-
-        if (longitude < 180 && longitude > -180) {
+        if (longitudeNumber == null || longitudeNumber > 180.0 || longitudeNumber < -180.0) {
             throw new NotCorrectBoundryException("Długośc geograficzna musi być między -180 do 180");
         }
-
-        if (latitude < 90 && latitude > -90) {
+        if (latitudeNumber == null || latitudeNumber > 90.0 || latitudeNumber < -90.0) {
             throw new NotCorrectBoundryException("Szerokość geograficzna musi być między -90 do 90");
         }
-
-
-        Localization localization = mapToLocalization(localizationDefinition);
-
+        Localization localization = localizationMapper.mapToLocalization(localizationDefinition);
         return localizationRepository.save(localization);
     }
-
-    private Localization mapToLocalization(LocalizationDefinition localizationDefinition) {
-
-        Localization localization = new Localization();
-        localization.builder()
-                .cityName(localizationDefinition.getCityName())
-                .countryName(localizationDefinition.getCountryName())
-                .latitude(localizationDefinition.getLatitude())
-                .regionName(localizationDefinition.getRegionName())
-                .longitude(localizationDefinition.getLongitude())
-                .build();
-
-        return localization;
-    }
-
-
 }

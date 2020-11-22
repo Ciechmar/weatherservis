@@ -25,4 +25,16 @@ public class LocalizationMapper {
                 .regionName(localizationDto.getRegionName())
                 .build();
     }
+
+     Localization mapToLocalization(LocalizationDefinition localizationDefinition) {
+        Localization localization = new Localization();
+
+        return localization.builder()
+                .cityName(localizationDefinition.getCityName())
+                .countryName(localizationDefinition.getCountryName())
+                .latitude(localizationDefinition.getLatitude())
+                .regionName(localizationDefinition.getRegionName())
+                .longitude(localizationDefinition.getLongitude())
+                .build();
+    }
 }
