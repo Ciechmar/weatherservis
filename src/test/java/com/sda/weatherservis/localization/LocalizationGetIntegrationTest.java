@@ -1,6 +1,7 @@
 package com.sda.weatherservis.localization;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -15,10 +16,10 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 @Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -28,7 +29,6 @@ public class LocalizationGetIntegrationTest {
     MockMvc mockMvc;
     @Autowired
     LocalizationRepository localizationRepository;
-    LocalizationMapper localizationMapper;
 
     ObjectMapper objectMapper = new ObjectMapper(); //ToDo:Doczytać
 
@@ -56,30 +56,24 @@ public class LocalizationGetIntegrationTest {
         assertThat(localizationDto.getLongitude().equals(savedLocalization.getLongitude()));
     }
 
-    //ToDo : DOKONCZ jak ochłoniesz!!
     @Test
     void getAllTest_getCorrectLocalizationList() throws Exception {
         //given
         localizationRepository.deleteAll();
         localizationRepository.save(createNewLocalization());
         localizationRepository.save(createNewLocalization());
-        MockHttpServletRequestBuilder request = get("/localization/")
+        MockHttpServletRequestBuilder request = get("/localizations")
                 .contentType(MediaType.APPLICATION_JSON);
         //when
         MvcResult result = mockMvc.perform(request).andReturn();
         //then
         MockHttpServletResponse response = result.getResponse();
         String responseBody = response.getContentAsString();
-        List<LocalizationDto> localizationDtoList = localizationRepository.findAll()
-                .stream()
-                .map(localizationMapper::mapToLocalizationDto).collect(Collectors.toList());
 
-        assertThat(localizationDtoList.size()>0);
+        List<LocalizationDto> locations = objectMapper.readValue(responseBody, new TypeReference<>() {
+        });
+        assertThat(locations).hasSize(2);
     }
-
-
-
-
 
     private Localization createNewLocalization() {
         return new Localization().builder()

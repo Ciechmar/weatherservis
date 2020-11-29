@@ -22,9 +22,9 @@ public class Localization {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String cityName; //NotNull
+//ToDo: opakować w Optional
     String regionName;
     String countryName; //NotNull
     Double longitude; //długość geograficzna zgodnie z wartościami geograficznymi -180->W, 180->E
     Double latitude; //szerokośc geograficzna zgodna z wartościami geograficznymi -90->S, 90->N
-    Instant createDate; // todo unnecessary
 }

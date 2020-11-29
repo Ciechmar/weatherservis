@@ -32,7 +32,7 @@ public class LocalizationController {
                 .body(localizationMapper.mapToLocalizationDto(newLocalization));
     }
 
-    @GetMapping("/localization")
+    @GetMapping("/localizations")
     List<LocalizationDto> getAllLocalization() {
         return localizationGetService.getAllLocalizationList().stream()
                 .map(localizationMapper::mapToLocalizationDto)
