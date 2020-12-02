@@ -57,6 +57,30 @@ public class LocalizationGetIntegrationTest {
     }
 
     @Test
+    void getByCityNameTest_getOneCorrectLocalization() throws Exception {
+        //given
+        localizationRepository.deleteAll();
+        Localization localization = localizationRepository.save(createNewLocalization());
+        localizationRepository.save(createSecondLocalization());
+        Localization savedLocalization = localization;
+        String cityName = savedLocalization.getCityName();
+        MockHttpServletRequestBuilder request = get("/localization/" + cityName)
+                .contentType(MediaType.APPLICATION_JSON);
+        //when
+        MvcResult result = mockMvc.perform(request).andReturn();
+        //then
+        MockHttpServletResponse response = result.getResponse();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        String responseBody = response.getContentAsString();
+        LocalizationDto localizationDto = objectMapper.readValue(responseBody, LocalizationDto.class);
+        assertThat(localizationDto.getCityName().equals(savedLocalization.getCityName()));
+        assertThat(localizationDto.getCountryName().equals(savedLocalization.getCountryName()));
+        assertThat(localizationDto.getLatitude().equals(savedLocalization.getLatitude()));
+        assertThat(localizationDto.getLongitude().equals(savedLocalization.getLongitude()));
+    }
+
+
+    @Test
     void getAllTest_getCorrectLocalizationList() throws Exception {
         //given
         localizationRepository.deleteAll();
@@ -80,6 +104,15 @@ public class LocalizationGetIntegrationTest {
                 .cityName("Gdansk")
                 .countryName("Poland")
                 .regionName("Pomorskie")
+                .latitude(0.0)
+                .longitude(0.0)
+                .build();
+    }
+    private Localization createSecondLocalization() {
+        return new Localization().builder()
+                .cityName("London")
+                .countryName("UK")
+                .regionName("Greater London")
                 .latitude(0.0)
                 .longitude(0.0)
                 .build();

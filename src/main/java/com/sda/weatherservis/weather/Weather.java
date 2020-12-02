@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class weather {
+public class Weather {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
