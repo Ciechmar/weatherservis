@@ -46,6 +46,32 @@ public class LocalizationGetIntegrationTest {
         MvcResult result = mockMvc.perform(request).andReturn();
         //then
         MockHttpServletResponse response = result.getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        String responseBody = response.getContentAsString();
+        LocalizationDto localizationDto = objectMapper.readValue(responseBody, LocalizationDto.class);
+        assertThat(localizationDto).isNotNull();
+//        assertThat(localizationDto.getId().equals(id));
+//        assertThat(localizationDto.getCityName().equals(savedLocalization.getCityName()));
+//        assertThat(localizationDto.getCountryName().equals(savedLocalization.getCountryName()));
+//        assertThat(localizationDto.getLatitude().equals(savedLocalization.getLatitude()));
+//        assertThat(localizationDto.getLongitude().equals(savedLocalization.getLongitude()));
+    }
+
+    @Test
+    void getByIdTest_getOneCorrectLocalizationByName() throws Exception {
+        //given
+        localizationRepository.deleteAll();
+        localizationRepository.save(createNewLocalization());
+        localizationRepository.save(createSecondLocalization());
+        Localization savedLocalization = localizationRepository.save(createNewLocalization());
+        Long id = savedLocalization.getId();
+        MockHttpServletRequestBuilder request = get("/localization/" + id)
+                .contentType(MediaType.APPLICATION_JSON);
+        //when
+        MvcResult result = mockMvc.perform(request).andReturn();
+        //then
+        MockHttpServletResponse response = result.getResponse();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         String responseBody = response.getContentAsString();
         LocalizationDto localizationDto = objectMapper.readValue(responseBody, LocalizationDto.class);
@@ -61,7 +87,7 @@ public class LocalizationGetIntegrationTest {
         //given
         localizationRepository.deleteAll();
         localizationRepository.save(createNewLocalization());
-        localizationRepository.save(createNewLocalization());
+        localizationRepository.save(createSecondLocalization());
         MockHttpServletRequestBuilder request = get("/localizations")
                 .contentType(MediaType.APPLICATION_JSON);
         //when
@@ -78,6 +104,16 @@ public class LocalizationGetIntegrationTest {
     private Localization createNewLocalization() {
         return new Localization().builder()
                 .cityName("Gdansk")
+                .countryName("Poland")
+                .regionName("Pomorskie")
+                .latitude(0.0)
+                .longitude(0.0)
+                .build();
+    }
+
+    private Localization createSecondLocalization() {
+        return new Localization().builder()
+                .cityName("Sopot")
                 .countryName("Poland")
                 .regionName("Pomorskie")
                 .latitude(0.0)

@@ -45,4 +45,11 @@ public class LocalizationController {
         Localization localization = localizationGetService.getLocalizationById(Long.valueOf(id));
         return localizationMapper.mapToLocalizationDto(localization);
     }
+
+    @GetMapping("/localization/{locationName}")
+    LocalizationDto getLocalizationByName(@PathVariable String locationName) {
+        //ToDo:Zabezpieczenie gdy id nie jest cyfrą-> wyjątek
+        Localization localization = localizationGetService.getLocalizationByLocationName(locationName);
+        return localizationMapper.mapToLocalizationDto(localization);
+    }
 }
