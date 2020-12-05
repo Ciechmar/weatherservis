@@ -21,9 +21,4 @@ public class LocalizationGetService {
         return localizationRepository.findAll();
     }
 
-    public Localization getLocalizationByLocationName(String locationName) {
-        return localizationRepository.findByCityName(locationName)
-                .orElseThrow(() -> new NotFoundException("Nie znaleziono lokalizacji o nazwie " + locationName));
-
-    }
 }

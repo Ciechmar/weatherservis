@@ -1,17 +1,14 @@
 package com.sda.weatherservis.localization;
 
-import com.sun.istack.NotNull;
+import com.sda.weatherservis.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.assertj.core.util.Lists;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @Log4j2
@@ -41,15 +38,12 @@ public class LocalizationController {
 
     @GetMapping("/localization/{id}")
     LocalizationDto getLocalization(@PathVariable String id) {
-        //ToDo:Zabezpieczenie gdy id nie jest cyfrą-> wyjątek
-        Localization localization = localizationGetService.getLocalizationById(Long.valueOf(id));
+        if (id.matches("D+")){ //D+ minimum 1 znak niebędący liczbą
+            throw new BadRequestException("Id musi być liczbą");
+        }
+        Long longId = Long.valueOf(id);
+        Localization localization = localizationGetService.getLocalizationById(Long.valueOf(longId));
         return localizationMapper.mapToLocalizationDto(localization);
     }
 
-    @GetMapping("/localization/{locationName}")
-    LocalizationDto getLocalizationByName(@PathVariable String locationName) {
-        //ToDo:Zabezpieczenie gdy id nie jest cyfrą-> wyjątek
-        Localization localization = localizationGetService.getLocalizationByLocationName(locationName);
-        return localizationMapper.mapToLocalizationDto(localization);
-    }
 }
