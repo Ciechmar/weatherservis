@@ -20,4 +20,5 @@ public class LocalizationGetService {
     List<Localization> getAllLocalizationList() {
         return localizationRepository.findAll();
     }
+
 }
