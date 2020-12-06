@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 
 public class WeatherDTO {
 
-
     Long id;
     Double temp;
     Double pressure;

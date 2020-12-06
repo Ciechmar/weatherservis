@@ -16,7 +16,7 @@ public class WeatherMapper {
                 .build();
     }
 
-    Weather mapToWeather(WeatherDTO weather){
+    Weather mapModelToWeather(ForecastResponseModel weather){
         return new Weather().builder()
                 .id(weather.getId())
                 .humidity(weather.getHumidity())
@@ -26,6 +26,5 @@ public class WeatherMapper {
                 .windSpeed(weather.getWindSpeed())
                 .build();
     }
-
 
 }

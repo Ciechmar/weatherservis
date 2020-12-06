@@ -1,15 +1,15 @@
 package com.sda.weatherservis.localization;
 
+import com.sda.weatherservis.weather.Weather;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,4 +27,7 @@ public class Localization {
     String countryName; //NotNull
     Double longitude; //długość geograficzna zgodnie z wartościami geograficznymi -180->W, 180->E
     Double latitude; //szerokośc geograficzna zgodna z wartościami geograficznymi -90->S, 90->N
+
+    @OneToMany(mappedBy = "localization")
+    List<Weather> forecastList = new ArrayList<>();
 }

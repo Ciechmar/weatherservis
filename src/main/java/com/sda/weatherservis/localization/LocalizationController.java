@@ -36,14 +36,14 @@ public class LocalizationController {
     }
 
     @GetMapping("/localization/{id}")
-    LocalizationDto getLocalization(@PathVariable String id) {
-        Localization localization = localizationGetService.getLocalizationById(Long.valueOf(id));
+    LocalizationDto getLocalization(@PathVariable Long id) {
+        Localization localization = localizationGetService.getLocalizationById(id);
         return localizationMapper.mapToLocalizationDto(localization);
     }
-
-    @GetMapping("/localization/{cityName}")
-    LocalizationDto getLocalizationByCityName(@PathVariable String cityName) {
-        Localization localization = localizationGetService.getLocalizationByCityName(cityName);
-        return localizationMapper.mapToLocalizationDto(localization);
-    }
+//
+//    @GetMapping("/localization/{cityName}")
+//    LocalizationDto getLocalizationByCityName(@PathVariable String cityName) {
+//        Localization localization = localizationGetService.getLocalizationByCityName(cityName);
+//        return localizationMapper.mapToLocalizationDto(localization);
+//    }
 }

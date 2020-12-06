@@ -1,14 +1,12 @@
 package com.sda.weatherservis.weather;
 
+import com.sda.weatherservis.localization.Localization;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -26,5 +24,7 @@ public class Weather {
     Double windSpeed;
     Double windDirection;
 
+    @ManyToOne
+    Localization localization;
 
 }
