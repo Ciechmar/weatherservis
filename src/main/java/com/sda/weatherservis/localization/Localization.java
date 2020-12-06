@@ -28,6 +28,6 @@ public class Localization {
     Double longitude; //długość geograficzna zgodnie z wartościami geograficznymi -180->W, 180->E
     Double latitude; //szerokośc geograficzna zgodna z wartościami geograficznymi -90->S, 90->N
 
-    @OneToMany(mappedBy = "localization")
+    @OneToMany(mappedBy = "localization", cascade = CascadeType.PERSIST)
     List<Weather> forecastList = new ArrayList<>();
 }

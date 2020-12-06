@@ -1,5 +1,6 @@
 package com.sda.weatherservis.weather;
 
+import com.sda.weatherservis.localization.Localization;
 import lombok.Data;
 
 @Data
@@ -12,5 +13,6 @@ public class ForecastResponseModel {
     Double humidity; //wilogtność
     Double windSpeed; //wind_speed
     Double windDirection; //wind_deg
+    Localization localization;
 
 }

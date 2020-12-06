@@ -1,5 +1,6 @@
 package com.sda.weatherservis.weather;
 
+import com.sda.weatherservis.localization.Localization;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,5 @@ public class WeatherDTO {
     Double humidity; //wilogtność
     Double windSpeed;
     Double windDirection;
+    Localization localization;
 }

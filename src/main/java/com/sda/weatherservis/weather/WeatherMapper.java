@@ -13,6 +13,7 @@ public class WeatherMapper {
                 .temp(weather.getTemp())
                 .windDirection(weather.getWindDirection())
                 .windSpeed(weather.getWindSpeed())
+                .localization(weather.getLocalization())
                 .build();
     }
 
@@ -24,6 +25,7 @@ public class WeatherMapper {
                 .temp(weather.getTemp())
                 .windDirection(weather.getWindDirection())
                 .windSpeed(weather.getWindSpeed())
+                .localization(weather.getLocalization())
                 .build();
     }
 
