@@ -17,10 +17,6 @@ public class LocalizationGetService {
                 .orElseThrow(() -> new NotFoundException("Nie znaleziono lokalizacji o id " + id));
     }
 
-    public Localization getLocalizationByCityName(String locationName){
-        return localizationRepository.findByCityName(locationName)
-                .orElseThrow(() -> new NotFoundException("Nie znaleziono lokalizacji o nazwie: " + locationName));
-    }
     List<Localization> getAllLocalizationList() {
         return localizationRepository.findAll();
     }
