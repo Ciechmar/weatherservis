@@ -40,10 +40,4 @@ public class LocalizationController {
         Localization localization = localizationGetService.getLocalizationById(id);
         return localizationMapper.mapToLocalizationDto(localization);
     }
-//
-//    @GetMapping("/localization/{cityName}")
-//    LocalizationDto getLocalizationByCityName(@PathVariable String cityName) {
-//        Localization localization = localizationGetService.getLocalizationByCityName(cityName);
-//        return localizationMapper.mapToLocalizationDto(localization);
-//    }
 }
