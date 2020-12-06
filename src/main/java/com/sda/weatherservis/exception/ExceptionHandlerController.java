@@ -17,6 +17,12 @@ public class ExceptionHandlerController {
         log.error(exception.getMessage());
     }
 
+    @ExceptionHandler(JasonParseException.class)
+    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    void jasonParseExceptionHandler (JasonParseException exception) {
+        log.error(exception.getMessage());
+    }
+
     @ExceptionHandler(NotCorrectBoundryException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     void notCorrectBoundaryHandler(NotCorrectBoundryException exception) {

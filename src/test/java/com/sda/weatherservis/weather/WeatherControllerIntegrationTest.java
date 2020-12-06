@@ -49,12 +49,16 @@ class WeatherControllerIntegrationTest {
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
+
+
+
+
     private Localization createNewLocalization() {
         return new Localization().builder()
                 .cityName("Gdansk")
                 .countryName("Poland")
                 .regionName("Pomorskie")
-                .latitude(-18.0)
+                .latitude(18.0)
                 .longitude(54.0)
                 .build();
     }

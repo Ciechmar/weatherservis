@@ -2,6 +2,7 @@ package com.sda.weatherservis.weather;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sda.weatherservis.exception.JasonParseException;
 import com.sda.weatherservis.localization.Localization;
 import com.sda.weatherservis.localization.LocalizationGetService;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
+
+import static org.aspectj.runtime.internal.Conversions.intValue;
 
 @Component
 @RequiredArgsConstructor
@@ -50,14 +53,12 @@ public class WeatherGetService {
 
         try {
             ForecastResponseModel forecastResponseModel = objectMapper.readValue(response, ForecastResponseModel.class);
-            //ToDo:Response to lista ,a nie pojedynczy model. Trzeba to wyciągnać jeden podany dzień wg daty, ale najpierw trzeba to przepisać. !
-            Weather weather = weatherMapper.mapModelToWeather(forecastResponseModel); //zamieniam model z Api na moje potrzebne wartości.
+            int period = date.compareTo(LocalDate.now());
+            Weather weather = weatherMapper.mapModelToWeather(forecastResponseModel, period, localizationByCityName); //zamieniam model z Api na moje potrzebne wartości.
             weatherRepository.save(weather); // Prognoza ma być zapisywana w bazie danych.
             return weather;
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            // todo throw our own exception -> 500 status code
-            return null;
+            throw new JasonParseException("Problem z przetworzeniem pobranego Jason'a");
         }
     }
 }

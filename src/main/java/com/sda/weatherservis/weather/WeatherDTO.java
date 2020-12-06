@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,5 +21,6 @@ public class WeatherDTO {
     Double humidity; //wilogtność
     Double windSpeed;
     Double windDirection;
+    LocalDate date;
     Localization localization;
 }

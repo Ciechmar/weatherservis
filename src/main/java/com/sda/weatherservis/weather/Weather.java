@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -23,6 +24,7 @@ public class Weather {
     Double humidity; //wilogtność
     Double windSpeed;
     Double windDirection;
+    LocalDate date;
 
     @ManyToOne
     Localization localization;
