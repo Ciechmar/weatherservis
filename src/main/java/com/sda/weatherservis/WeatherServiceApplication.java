@@ -6,11 +6,9 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-
-public class WeatherservisApplication {
+public class WeatherServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WeatherservisApplication.class, args);
+        SpringApplication.run(WeatherServiceApplication.class, args);
     }
-
 }

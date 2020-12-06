@@ -1,18 +1,20 @@
 package com.sda.weatherservis.weather;
 
-import com.sda.weatherservis.localization.Localization;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class ForecastResponseModel {
-//   Tutaj jak wyglądaja pola zebrane z API -> Ogarnij deltaTime DT!
 
-    Long id;
-    Double temp;
-    Double pressure;
-    Double humidity; //wilogtność
-    Double windSpeed; //wind_speed
-    Double windDirection; //wind_deg
-    Localization localization;
+    private Integer lat;
+    private Integer lon;
+    private List<SingleForecastResponseModel> daily;
 
+    @Data
+    static class SingleForecastResponseModel {
+        private Long dt;
+
+        // todo develop
+    }
 }

@@ -19,13 +19,13 @@ public class WeatherMapper {
 
     Weather mapModelToWeather(ForecastResponseModel weather){
         return new Weather().builder()
-                .id(weather.getId())
-                .humidity(weather.getHumidity())
-                .pressure(weather.getPressure())
-                .temp(weather.getTemp())
-                .windDirection(weather.getWindDirection())
-                .windSpeed(weather.getWindSpeed())
-                .localization(weather.getLocalization())
+//                .id(weather.getId())
+//                .humidity(weather.getHumidity())
+//                .pressure(weather.getPressure())
+//                .temp(weather.getTemp())
+//                .windDirection(weather.getWindDirection())
+//                .windSpeed(weather.getWindSpeed())
+//                .localization(weather.getLocalization())
                 .build();
     }
 

@@ -1,6 +1,5 @@
 package com.sda.weatherservis.weather;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sda.weatherservis.localization.Localization;
 import com.sda.weatherservis.localization.LocalizationRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -16,14 +15,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @Slf4j
 @SpringBootTest
 @AutoConfigureMockMvc
-class WeatherControllerTest {
-
+class WeatherControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -38,12 +35,11 @@ class WeatherControllerTest {
         savedLocalization = localizationRepository.save(createNewLocalization());
     }
 
-
     @Test
     void getForecast_returnsCorrectForecastAnd200StatusCode() throws Exception {
         // given
-        String cityName = savedLocalization.getCityName();
-        MockHttpServletRequestBuilder request = get("/localization/" + cityName + "/forecast")
+        Long id = savedLocalization.getId();
+        MockHttpServletRequestBuilder request = get("/weather/" + id)
                 .contentType(MediaType.APPLICATION_JSON);
 
         // when
@@ -58,10 +54,11 @@ class WeatherControllerTest {
                 .cityName("Gdansk")
                 .countryName("Poland")
                 .regionName("Pomorskie")
-                .latitude(0.0)
-                .longitude(0.0)
+                .latitude(-18.0)
+                .longitude(54.0)
                 .build();
     }
+
     private Localization createSecondLocalization() {
         return new Localization().builder()
                 .cityName("London")

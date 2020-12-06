@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,12 +22,13 @@ public class WeatherController {
     // Założenie jest takie, że lokalizację z danymi geograficznymi musi być w bazie danych, więc posiadam lon i lat.
     @GetMapping("/weather/{id}")
     //podane bez daty czyli na dzień następny
-    ResponseEntity<WeatherDTO> getWeaher(@PathVariable Long id, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") String date) { //ToDo: Min i max na dd
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate forecastData = LocalDate.parse(date, dtf);
-        if (forecastData == null) {
-            forecastData = LocalDate.now().plusDays(1);
+    ResponseEntity<WeatherDTO> getWeaher(@PathVariable Long id, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) { //ToDo: Min i max na dd
+        if (date == null) {
+            date = LocalDate.now().plusDays(1);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(weatherGetService.getWeatherForCity(id, forecastData));
+        Weather weather = weatherGetService.getWeatherForCity(id, date);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(weatherMapper.mapToWeatherDto(weather));
     }
 }
