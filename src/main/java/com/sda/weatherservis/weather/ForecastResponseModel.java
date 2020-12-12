@@ -1,5 +1,6 @@
 package com.sda.weatherservis.weather;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 
@@ -9,17 +10,26 @@ import java.util.List;
 @Getter
 public class ForecastResponseModel {
 
-    private Double lat;
-    private Double lon;
-    private List<SingleForecastResponseModel> daily;
+     Double lat;
+     Double lon;
+    @JsonProperty ("daily")
+     List<SingleForecastResponseModel> daily;
 
     @Data
-    static class SingleForecastResponseModel {
-        private String dt;
-        private Double temp;
-        private Double pressure;
-        private Double humidity;
-        private Double wind_speed;
-        private Double wind_deg; //kierunek wiatru w stopniach.
+    public static class SingleForecastResponseModel {
+         String dt;
+//        @JsonProperty ("temp")
+//        private List<DailyTemperature>temp;
+         Double pressure;
+         Double humidity;
+         Double wind_speed;
+         Double wind_deg; //kierunek wiatru w stopniach.
     }
+
+//    @Data
+//    public static class DailyTemperature {
+//        private Double day;
+//        private Double min;
+//        private Double max;
+//    }
 }

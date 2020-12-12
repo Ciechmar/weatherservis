@@ -20,13 +20,13 @@ public class WeatherController {
 
     //Użytkownik sprawdza pogodę dla danej daty ,a jak jej nie poda to na dzień następny-
     // Założenie jest takie, że lokalizację z danymi geograficznymi musi być w bazie danych, więc posiadam lon i lat.
+
     @GetMapping("/weather/{id}")
-    //podane bez daty czyli na dzień następny
     ResponseEntity<WeatherDTO> getWeaher(@PathVariable Long id, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) { //ToDo: Min i max na dd
         if (date == null) {
             date = LocalDate.now().plusDays(1);
         }
-        Weather weather = weatherGetService.getWeatherForCity(id, date);
+        Weather weather = weatherGetService.getWeatherForCity(id, date); //id miasta, data na kiedy ma być prognoza
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(weatherMapper.mapToWeatherDto(weather));
