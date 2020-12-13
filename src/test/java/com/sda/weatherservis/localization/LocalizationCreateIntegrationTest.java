@@ -74,7 +74,7 @@ public class LocalizationCreateIntegrationTest {
         LocalizationDto localizationDto = new LocalizationDto(null, "   ", "panstwo", "region", 0.0, 0.0);
         String requestBody = objectMapper.writeValueAsString(localizationDto);
         MockHttpServletRequestBuilder post = post("/localization")
-                .with(user("admin").roles("ROLE_ADMIN"))
+                .with(user("admin").roles("ADMIN"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody);
 
