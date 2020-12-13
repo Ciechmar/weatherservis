@@ -52,14 +52,14 @@ public class WeatherGetService {
         String response = entity.getBody();
         Weather weather;
         int period = date.compareTo(LocalDate.now());
-        if (period>MAX_PERIOD){
+        if (period > MAX_PERIOD) {
             throw new NotCorrectBoundryException("Data poza zasięgiem- lepiej zapytaj jasnowidza");
         }
         try {
             ForecastResponseModel forecastResponseModel = objectMapper.readValue(response, ForecastResponseModel.class);
             //zamieniam model z Api na moje potrzebne wartości.
 
-            weather =weatherMapper.mapModelToWeather(forecastResponseModel, period,localizationById);
+            weather = weatherMapper.mapModelToWeather(forecastResponseModel, period, localizationById);
             System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(forecastResponseModel));
 
             weatherRepository.save(weather); // Prognoza ma być zapisywana w bazie danych.

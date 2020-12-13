@@ -7,9 +7,12 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.TimeZone;
 
 @Component
 @Validated
@@ -28,24 +31,25 @@ public class WeatherMapper {
                 .build();
     }
 
-    Weather mapModelToWeather(ForecastResponseModel model, @Min(0) @Max(6) int datePeriod, Localization localization) {
+    Weather mapModelToWeather(ForecastResponseModel model, int datePeriod, Localization localization) {
         /*
       1) ForecastResponse model to Objekt z listą obiektów tupu SingleResponseModel, która potrzebuje
       2) datePeriod to który dzień mam wziać, czyli miejsce w liście (0-6!)
 
          */
         ForecastResponseModel.SingleForecastResponseModel singleForecastModel = model.getDaily().get(datePeriod);
-        Timestamp timestamp = Timestamp.valueOf(singleForecastModel.getDt());
-        LocalDate date = timestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Long timestamp = Long.parseLong(singleForecastModel.getDt()) * 1000;
+        ZoneId zoneId = TimeZone.getDefault().toZoneId();
+        Instant instant = Instant.ofEpochMilli(timestamp);
+        LocalDate localDate = LocalDate.ofInstant(instant, zoneId);
 
         return new Weather().builder()
                 .humidity(singleForecastModel.getHumidity())
                 .pressure(singleForecastModel.getPressure())
-//                .temp(singleForecastModel.getTemp().get(0).getDay())
-                .temp(20.0)
+                .temp(singleForecastModel.getTemp().getDay())
                 .windDirection(singleForecastModel.getWind_deg())
                 .windSpeed(singleForecastModel.getWind_speed())
-                .date(date)
+                .date(localDate)
                 .localization(localization)
                 .build();
     }

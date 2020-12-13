@@ -20,10 +20,10 @@ public class Weather {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     Double temp;
-    Double pressure;
-    Double humidity; //wilogtność
+    Integer pressure;
+    Integer humidity; //wilogtność
     Double windSpeed;
-    Double windDirection;
+    Integer windDirection;
     LocalDate date;
 
     @ManyToOne

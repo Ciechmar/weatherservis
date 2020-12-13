@@ -10,26 +10,26 @@ import java.util.List;
 @Getter
 public class ForecastResponseModel {
 
-     Double lat;
-     Double lon;
-    @JsonProperty ("daily")
-     List<SingleForecastResponseModel> daily;
+    Double lat;
+    Double lon;
+    @JsonProperty("daily")
+    List<SingleForecastResponseModel> daily;
 
     @Data
     public static class SingleForecastResponseModel {
-         String dt;
-//        @JsonProperty ("temp")
-//        private List<DailyTemperature>temp;
-         Double pressure;
-         Double humidity;
-         Double wind_speed;
-         Double wind_deg; //kierunek wiatru w stopniach.
+        String dt;
+        @JsonProperty("temp")
+        private DailyTemperature temp;
+        Integer pressure;
+        Integer humidity;
+        Double wind_speed;
+        Integer wind_deg; //kierunek wiatru w stopniach.
     }
 
-//    @Data
-//    public static class DailyTemperature {
-//        private Double day;
-//        private Double min;
-//        private Double max;
-//    }
+    @Data
+    public static class DailyTemperature {
+        private Double day;
+        private Double min;
+        private Double max;
+    }
 }

@@ -17,10 +17,10 @@ public class WeatherDTO {
 
     Long id;
     Double temp;
-    Double pressure;
-    Double humidity; //wilogtność
+    Integer pressure;
+    Integer humidity; //wilogtność
     Double windSpeed;
-    Double windDirection;
+    Integer windDirection;
     LocalDate date;
     Localization localization;
 }
